@@ -59,7 +59,7 @@
 
             <div class="form-check mt-3 d-flex justify-content-between">
                 <div>
-                    <input class="form-check-input" type="checkbox" id="terms">
+                    <input class="form-check-input" name="remember" type="checkbox" id="terms">
                     <label class="form-check-label text-muted" for="terms">
                         Remember me
                     </label>

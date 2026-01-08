@@ -18,6 +18,8 @@ A modern Laravel-based web application built with simplicity, elegance, and scal
 
 ---
 
+terminologia = পরিভাষা 
+
 ## 🛠️ Installation Guide
 
 ### 1. Clone the Repository
