@@ -400,3 +400,115 @@ background: linear-gradient(0deg, rgba(255,151,0,1) 0%, rgba(251,75,2,1) 100%);
     /* change the value of second inset in box-shadow to change the angle and direction of the moon  */
     box-shadow: inset -3px -2px 5px -2px #8983f7, inset -10px -4px 0 0 #a3dafb;
   }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  /* This is for new app */
+
+
+  /* .story-card {
+    position: relative;
+    cursor: pointer;
+    transition: 0.4s ease, transform 0.2s ease;
+  }
+  .story-card::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    padding: 3px;
+    background: linear-gradient(135deg, #6a54e8, #54c6e8);
+    border-radius: inherit;
+    -webkit-mask:
+        linear-gradient(#fff 0 0) content-box,
+        linear-gradient(#fff 0 0);
+    -webkit-mask-composite: xor;
+    mask-composite: exclude;
+}
+
+  .story-card:hover {
+    border-image: linear-gradient(135deg, #6a54e8, #54c6e8) 1;
+    box-shadow: rgba(50, 50, 93, 0.25) 0px 6px 12px -2px, rgba(0, 0, 0, 0.3) 0px 3px 7px -3px;
+    transform: scale(1.003);
+  } */
+
+
+
+
+ .gradient-border {
+    position: relative;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+/* hidden by default */
+.gradient-border::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    padding: 3px; /* border thickness */
+    border-radius: inherit;
+
+    background: linear-gradient(
+        135deg,
+        #6a54e8,
+        #54c6e8,
+        #6a54e8
+    );
+    background-size: 300% 300%;
+
+    -webkit-mask:
+        linear-gradient(#fff 0 0) content-box,
+        linear-gradient(#fff 0 0);
+    -webkit-mask-composite: xor;
+    mask-composite: exclude;
+
+    opacity: 0;
+    transition: opacity 0.3s ease;
+}
+
+/* show + animate on hover */
+.gradient-border:hover::before {
+    opacity: 1;
+    animation: borderMove 3s linear infinite;
+}
+
+/* animation */
+@keyframes borderMove {
+    0%   { background-position: 0% 50%; }
+    100% { background-position: 100% 50%; }
+}
+
+
+
+.story-card .story-header {
+    padding: 0 20px 10px;
+}
+
+.story-card .story-header h2 {
+    font-size: 22px;
+    font-weight: bold;
+    line-height: 24px;
+    margin: 0;
+}
+
+.story-card .story-content {
+    margin: 0;
+    padding: 0 20px 5px;
+}
+
+.story-card .story-content p {
+    font-size: 18px;
+    line-height: 23px;
+}
