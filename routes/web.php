@@ -7,6 +7,7 @@ use App\Http\Controllers\ExpenseItemController;
 use App\Http\Controllers\ExpeseFilterController;
 use App\Http\Controllers\HomepageController;
 use App\Http\Controllers\SettingController;
+use App\Http\Controllers\StoryController;
 use App\Http\Controllers\UserProfileController;
 
 // Route::get('/', function () {
@@ -33,6 +34,7 @@ Route::middleware('auth')->group(function () {
     });
 
     // Pages Route 
+    Route::resource('story', StoryController::class);
     Route::resource('account', AccountController::class);
     Route::resource('category',ExpenseCategoryController::class);
     Route::resource('expense', ExpenseItemController::class);
