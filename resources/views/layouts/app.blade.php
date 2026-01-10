@@ -76,7 +76,7 @@
           @include('partials.header')
 
             <!-- ========== Left Sidebar Start ========== -->
-           {{-- @include('partials.sidebar') --}}
+           @include('partials.sidebar')
             <!-- Left Sidebar End -->
 
 
