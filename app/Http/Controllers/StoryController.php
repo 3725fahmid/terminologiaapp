@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Maatwebsite\Excel\Facades\Excel;
 use App\Imports\ExcelDataImport;
+use Maatwebsite\Excel\Concerns\WithHeadingRow;
 
 class StoryController extends Controller
 {
@@ -15,20 +16,50 @@ class StoryController extends Controller
      */
     public function index()
     {
+
+    // // 1. Load the Excel data into Collections
+    // // Using 'toArray' or 'toCollection' converts the rows into arrays
+    // Import using the 'heading' feature to ensure keys like 'user_id' exist
+    $usersData = Excel::toCollection(new class implements WithHeadingRow {
+        public function headingRow(): int { return 1; }
+    }, public_path('storyassets/user.xlsx'))->first();
+
+    $addressesData = Excel::toCollection(new class implements WithHeadingRow {
+        public function headingRow(): int { return 1; }
+    }, public_path('storyassets/addresses.xlsx'))->first();
+
+    $usersWithAddress = $usersData->map(function ($user) use ($addressesData) {
+    // 1. Convert the $user (which is currently a collection) into an array
+    $userArray = $user instanceof \Illuminate\Support\Collection ? $user->toArray() : (array) $user;
+
+    // 2. Perform the relation lookup
+    $address = $addressesData->where('user_id', $userArray['user_id'])->first();
+
+    // 3. Attach the address
+    $userArray['address'] = $address;
+
+    // 4. IMPORTANT: Convert to an object so you can use ->name in Blade
+    return (object) $userArray;
+    });
+
+    // dd($usersWithAddress);
+
+    return view('story.index', ['users' => $usersWithAddress]);
+
         //
-        $data = Excel::toCollection(new ExcelDataImport, public_path('storyassets/data.xlsx'));
+        // $data = Excel::toCollection(new ExcelDataImport, public_path('storyassets/data.xlsx'));
 
-        // Excel structure:
-        // $data[0] = first sheet
-        // $data[0][0] = first row (header)
+        // // Excel structure:
+        // // $data[0] = first sheet
+        // // $data[0][0] = first row (header)
 
-        $rows = collect($data[0]);
+        // $rows = collect($data[0]);
         
-        // Optional: remove header row
-        $header = $rows->shift();
-        // dd($header);
+        // // Optional: remove header row
+        // $header = $rows->shift();
+        // // dd($header);
 
-        return view('story.index',compact('rows', 'header'));
+        // return view('story.index',compact('rows', 'header'));
     }
 
     /**

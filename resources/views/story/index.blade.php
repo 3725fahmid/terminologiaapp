@@ -11,7 +11,23 @@
 
 <h2>Excel Sheet Data</h2>
 
-<table>
+@foreach($users as $user)
+    <div class="user-row">
+        {{-- Accessing direct properties --}}
+        <p>Name: {{ $user->name }}</p>
+        <p>Email: {{ $user->email }}</p>
+
+        {{-- Accessing the related address --}}
+        @if($user->address)
+            {{-- Note: address might still be a collection/array, use [] or -> accordingly --}}
+            <p>City: {{ $user->address['city'] ?? 'No City' }}</p>
+        @endif
+    </div>
+    <hr>
+@endforeach
+
+
+{{-- <table>
     <thead>
         <tr>
             @foreach ($header as $head)
@@ -28,7 +44,7 @@
             </tr>
         @endforeach
     </tbody>
-</table>
+</table> --}}
 
 </body>
 </html>
