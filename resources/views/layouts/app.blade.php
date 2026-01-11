@@ -76,7 +76,7 @@
           @include('partials.header')
 
             <!-- ========== Left Sidebar Start ========== -->
-           @include('partials.sidebar')
+           {{-- @include('partials.sidebar') --}}
             <!-- Left Sidebar End -->
 
 
@@ -84,7 +84,7 @@
             <!-- ============================================================== -->
             <!-- Start right Content here -->
             <!-- ============================================================== -->
-            <div class="main-content">
+            <div class="container">
 
                @yield('admin')
                 <!-- End Page-content -->

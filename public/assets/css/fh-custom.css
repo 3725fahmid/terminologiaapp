@@ -512,3 +512,18 @@ background: linear-gradient(0deg, rgba(255,151,0,1) 0%, rgba(251,75,2,1) 100%);
     font-size: 18px;
     line-height: 23px;
 }
+
+
+/* Footer  */
+.custom-footer {
+  bottom: 0;
+  padding: 20px calc(24px / 2);
+  position: absolute;
+  left: 0;
+  color: #6c757d;
+  right: 0;
+  height: 60px;
+  -webkit-box-shadow: -1px 0px 20px rgba(0, 0, 0, 0.05);
+          box-shadow: -1px 0px 20px rgba(0, 0, 0, 0.05);
+  background-color: #fff;
+}

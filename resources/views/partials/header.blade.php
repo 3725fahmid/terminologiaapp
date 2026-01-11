@@ -22,9 +22,9 @@
                             </a>
                         </div>
 
-    <button type="button" class="btn btn-sm px-3 font-size-24 header-item waves-effect" id="vertical-menu-btn">
+    {{-- <button type="button" class="btn btn-sm px-3 font-size-24 header-item waves-effect" id="vertical-menu-btn">
         <i class="ri-menu-2-line align-middle"></i>
-    </button>
+    </button> --}}
 
     <!-- App Search-->
     <form class="app-search d-none d-lg-block">
@@ -40,7 +40,7 @@
 <div class="d-flex">
 
 
-    {{-- <div class="dropdown d-none d-lg-inline-block ms-1">
+    <div class="dropdown d-none d-lg-inline-block ms-1">
         <button type="button" class="btn header-item noti-icon waves-effect">
             <div class="checkbox-wrapper-54">
                 <label class="switch" for="mode-switch">
@@ -49,12 +49,12 @@
                 </label>
             </div>
         </button>
-    </div> --}}
-    <div class="dropdown d-none d-lg-inline-block ms-1">
+    </div>
+    {{-- <div class="dropdown d-none d-lg-inline-block ms-1">
         <button type="button" class="btn header-item noti-icon waves-effect" data-toggle="fullscreen">
             <i class="ri-fullscreen-line"></i>
         </button>
-    </div>
+    </div> --}}
 
     @php
     $id = Auth::user()->id;
@@ -81,11 +81,11 @@
                         </div>
                     </div>
 
-                    {{-- <div class="dropdown d-inline-block">
+                    <div class="dropdown d-inline-block">
                         <button type="button" class="btn header-item noti-icon right-bar-toggle waves-effect">
                             <i class="ri-settings-2-line"></i>
                         </button>
-                    </div> --}}
+                    </div>
 
 
 
