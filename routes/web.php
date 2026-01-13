@@ -23,35 +23,35 @@ use App\Http\Controllers\UserProfileController;
 Route::middleware('auth')->group(function () {
     // Admin All Route
     Route::controller(UserProfileController::class)->group(function () {
-       Route::get('/logout', 'destroy')->name('logout');
-       Route::get('/profile', 'Profile')->name('profile');
-       Route::get('/edit/profile', 'EditProfile')->name('edit.profile');
-       Route::post('/store/profile', 'StoreProfile')->name('store.profile');
-    
-       Route::get('/change/password', 'ChangePassword')->name('change.password');
-       Route::post('/update/password', 'UpdatePassword')->name('update.password');
-    
+        Route::get('/logout', 'destroy')->name('logout');
+        Route::get('/profile', 'Profile')->name('profile');
+        Route::get('/edit/profile', 'EditProfile')->name('edit.profile');
+        Route::post('/store/profile', 'StoreProfile')->name('store.profile');
+
+        Route::get('/change/password', 'ChangePassword')->name('change.password');
+        Route::post('/update/password', 'UpdatePassword')->name('update.password');
     });
 
     // Pages Route 
+    Route::get('storydata/{id}', [StoryController::class, 'storydata'])
+        ->name('story.storydata');
     Route::resource('story', StoryController::class);
     Route::resource('account', AccountController::class);
-    Route::resource('category',ExpenseCategoryController::class);
+    Route::resource('category', ExpenseCategoryController::class);
     Route::resource('expense', ExpenseItemController::class);
-    Route::get('calender', function() {
+    Route::get('calender', function () {
         return view('frontend.calender.index');
     });
     Route::resource('setting', SettingController::class);
     Route::resource('expensefilter', ExpeseFilterController::class);
-    Route::post('/expensefilter', [ExpeseFilterController::class,'filter'])->name('expensefilter.filter');
-
+    Route::post('/expensefilter', [ExpeseFilterController::class, 'filter'])->name('expensefilter.filter');
 });
 
 
 
-Route::get('/', HomepageController::class,'index')->middleware(['auth'])->name('home');
+Route::get('/', [HomepageController::class, 'index'])->middleware(['auth'])->name('home');
 
-require __DIR__.'/auth.php';
+require __DIR__ . '/auth.php';
 
 
 // Route::get('/contact', function () {

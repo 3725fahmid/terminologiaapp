@@ -7,8 +7,10 @@
 @section('admin')
 
 
+@yield('story')
+
 <div class="page-content">
-                    <div class="container-fluid">
+                    <div class="lg-container-fluid p-0">
                         
                         <!-- start page title -->
                         {{-- <div class="row">
@@ -32,21 +34,31 @@
                         <div class="row">
                             <div class="col-12">
 
-                                <a href="{{ route('story.index') }}" class="story-link">
-                                    <!-- Card start  -->
-                                    <div class="card story-card gradient-border">
-                                        <div class="card-body">
-                                            <header class="story-header">
-                                                <h2>History of Egypt</h2>
-                                            </header>
-    
-                                            <div class="pt-1 story-content">
-                                                <p class="text-bold">Lorem ipsum, dolor sit amet consectetur adipisicing elit. Rem eveniet, natus magnam doloribus totam nam cum quasi? Vero officiis id iusto? At enim distinctio odit ipsum eligendi quibusdam voluptatem quisquam aperiam praesentium quidem, assumenda inventore quae, consectetur maxime neque molestiae. Asperiores, impedit cum. Consequuntur nobis pariatur quasi. Rerum eaque possimus ipsam quos repellendus obcaecati veniam optio neque voluptas repellat incidunt saepe reiciendis, illo aspernatur repudiandae fugiat magnam sit enim quis officia asperiores nihil ullam aliquam. Sequi blanditiis nobis accusamus fugiat quasi est soluta, amet voluptate rerum consequatur eum magni perspiciatis consequuntur ut omnis a enim exercitationem molestiae minus? Sunt est quod esse eveniet consectetur animi in hic at fugiat aperiam totam velit eos magnam deserunt quaerat cum reprehenderit nam, aliquam illo, sapiente natus corporis! Non eos quaerat expedita, rem enim maxime est quia in nam iste recusandae perspiciatis sed soluta possimus magnam odio iure facilis nesciunt. Repellendus ad quidem molestias?</p>
-                                                <p class="text-muted text-truncate mb-2">Yesterday</p>
+                                @foreach ($storyData as $item)
+                                @if(isset($item['story_id']))
+                                    <a href="{{ route('story.storydata',['id' => $item['story_id']]) }}" class="story-link">
+                                        <div class="card story-card gradient-border">
+                                            <div class="card-body">
+                                                <header class="story-header">
+                                                    <h2>{{ $item['story_id'] }}</h2>
+                                                </header>
+
+                                                <div class="pt-1 story-content">
+                                                    <p class="text-bold">
+                                                       {{ Str::limit($item['english'] ?? '', 150) }}
+                                                    </p>
+                                                    <p class="text-muted text-truncate mb-2">
+                                                        {{ Str::limit($item['bangla'] ?? '', 150) }}
+                                                    </p>
+                                                    <p class="text-muted text-truncate mb-2">
+                                                        
+                                                    </p>
+                                                </div>
                                             </div>
                                         </div>
-                                    </div><!-- end card -->
-                                </a>
+                                    </a>
+                                    @endif
+                                @endforeach
 
 
                             </div>

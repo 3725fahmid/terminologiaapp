@@ -8,6 +8,11 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Carbon\Carbon;
 
+use Maatwebsite\Excel\Facades\Excel;
+use App\Imports\ExcelDataImport;
+use Maatwebsite\Excel\Concerns\WithHeadingRow;
+use Illuminate\Support\Collection;
+
 class HomepageController extends Controller
 {
     /**
@@ -15,175 +20,33 @@ class HomepageController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function __invoke()
+    public function index()
     {
-        
-            $id = Auth::user()->id;
-            $now = Carbon::now();
-
-            // This week's period (Monday to Sunday)
-            $startOfWeek = $now->copy()->startOfWeek();
-            $endOfWeek = $now->copy()->endOfWeek();
-
-            // Previous week's period (Monday to Sunday)
-            $startOfPreviousWeek = $startOfWeek->copy()->subWeek();
-            $endOfPreviousWeek = $endOfWeek->copy()->subWeek();
-
-            // Current week's total expenses
-            $totalThisWeek = ExpenseItem::where('user_id', $id)->whereBetween('expense_date', [$startOfWeek, $endOfWeek])
-                ->sum('amount');
-
-            // Previous week's total expenses
-            $previousWeekTotal = ExpenseItem::where('user_id', $id)->whereBetween('expense_date', [$startOfPreviousWeek, $endOfPreviousWeek])
-                ->sum('amount');
-
-            // Calculate difference and percentage change
-            $weekDiff = $totalThisWeek - $previousWeekTotal;
-
-            $weekpercentageChange = $previousWeekTotal > 0 ? number_format(($weekDiff / $previousWeekTotal) * 100, 2) : null;
 
 
-            // --- TODAY & PREVIOUS DAY ---
-            $today = $now->copy()->startOfDay();
-            $yesterday = $now->copy()->subDay()->startOfDay();
+        // Import Excel as collection
+        $collections = Excel::toCollection(new class implements WithHeadingRow {
+            public function headingRow(): int
+            {
+                return 1; // First row as heading
+            }
+        }, public_path('storyassets/story.xlsx'));
 
-            $todayTotal = ExpenseItem::where('user_id', $id)->whereDate('expense_date', $today)->sum('amount');
-            $yesterdayTotal = ExpenseItem::where('user_id', $id)->whereDate('expense_date', $yesterday)->sum('amount');
+        // Get the first sheet safely
+        $storyData = $collections->first()->map(function ($row) {
+            // Convert each row to plain array and trim all keys
+            $rowArray = array_map('trim', $row->toArray());
 
-            $todayDiff = $todayTotal - $yesterdayTotal;
-            $todayPercentChange = $yesterdayTotal > 0
-            ? number_format(($todayDiff / $yesterdayTotal) * 100, 2)
-            : null;
+            // Optional: filter out rows without story_id
+            if (!isset($rowArray['story_id']) || empty($rowArray['story_id'])) {
+                return null; // will filter out later
+            }
 
-            // --- THIS MONTH & PREVIOUS MONTH ---
-            $startOfMonth = $now->copy()->startOfMonth();
-            $endOfMonth = $now->copy()->endOfMonth();
-            $startOfPrevMonth = $now->copy()->subMonth()->startOfMonth();
-            $endOfPrevMonth = $now->copy()->subMonth()->endOfMonth();
+            return $rowArray;
+        })->filter(); // remove null rows
 
-            $thisMonthTotal = ExpenseItem::where('user_id', $id)->whereBetween('expense_date', [$startOfMonth, $endOfMonth])->sum('amount');
-            $prevMonthTotal = ExpenseItem::where('user_id', $id)->whereBetween('expense_date', [$startOfPrevMonth, $endOfPrevMonth])->sum('amount');
-
-            $monthDiff = $thisMonthTotal - $prevMonthTotal;
-            $monthPercentChange = $prevMonthTotal > 0
-            ? number_format(($monthDiff / $prevMonthTotal) * 100, 2)
-            : null;
-
-            // --- THIS YEAR & PREVIOUS YEAR ---
-            $startOfYear = $now->copy()->startOfYear();
-            $year = $startOfYear->year;
-            $endOfYear = $now->copy()->endOfYear();
-            $startOfPrevYear = $now->copy()->subYear()->startOfYear();
-            $endOfPrevYear = $now->copy()->subYear()->endOfYear();
-
-            $thisYearTotal = ExpenseItem::where('user_id', $id)->whereBetween('expense_date', [$startOfYear, $endOfYear])->sum('amount');
-            $prevYearTotal = ExpenseItem::where('user_id', $id)->whereBetween('expense_date', [$startOfPrevYear, $endOfPrevYear])->sum('amount');
-
-            $yearDiff = $thisYearTotal - $prevYearTotal;
-            $yearPercentChange = $prevYearTotal > 0
-            ? number_format(($yearDiff / $prevYearTotal) * 100, 2)
-            : null;
-
-
-            // For Apex chart 
-
-            //Summary of the year
-
-            $thisyearExpenses = ExpenseItem::with('category')->where('user_id', $id)->whereBetween('expense_date', [$startOfYear, $endOfYear])->get();
-            
-            // Prepare for ApexChart: Group by category and sum
-            $grouped = $thisyearExpenses->groupBy(function ($item) {
-                return $item->category->name ?? 'Uncategorized';
-            })->map(function ($items) {
-                return $items->sum('amount');
-            });
-            
-            $labels = $grouped->keys();
-            $data = $grouped->values();
-
-            // For All Expenses Chart 
-            $allExpenses = ExpenseItem::with('category')->where('user_id', $id)->get();
-            $groupedExpensesByCategory = $allExpenses->groupBy(function ($item) {
-                return $item->category->name ?? 'Uncategorized';
-            })->map(function ($items) {
-                return $items->sum('amount');
-            });
-
-            $expenseCategoryLabels = $groupedExpensesByCategory->keys();
-            $expenseCategorySums = $groupedExpensesByCategory->values();
-
-
-
-
-
-            //End Apex chart 
-
-            // Current month Expenses 
-            $CurrentmonthExpenses = ExpenseItem::with('category')->where('user_id', $id)->whereBetween('expense_date', [$startOfMonth, $endOfMonth])->get();
-            // Prepare for ApexChart: Group by category and sum
-            $grouped = $CurrentmonthExpenses->groupBy(function ($item) {
-                return $item->category->name ?? 'Uncategorized';
-            })->map(function ($items) {
-                return $items->sum('amount');
-            });
-
-            $CMlabels = $grouped->keys();
-            $CMdata = $grouped->values();
-
-            // dd($CMdata);
-            // Last 10 expenses 
-
-            $lastfewExpenses = ExpenseItem::with('category')
-            ->where('user_id', auth()->id()) // or use $id if passed
-            ->orderBy('expense_date', 'desc') // most recent first
-            ->take(10)
-            ->get();
-            // dd($lastfewExpenses);
-        
-            $totalBalance = Account::where('user_id', $id)->sum('balance');
-            $ExpenseBalance = ExpenseItem::where('user_id', $id)->sum('amount');
-
-            $availabaleBalance = $totalBalance - $ExpenseBalance;
-        // Pass variables to view
-        return view('layouts.index', compact(
-            'availabaleBalance',
-            'todayTotal',
-            'yesterdayTotal',
-            'todayDiff',
-            'todayPercentChange',
-            'totalThisWeek',
-            'previousWeekTotal',
-            'weekDiff',
-            'weekpercentageChange',
-            'thisMonthTotal',
-            'prevMonthTotal',
-            'monthDiff',
-            'monthPercentChange',
-            'thisYearTotal',
-            'prevYearTotal',
-            'yearDiff',
-            'yearPercentChange',
-
-            'year',
-            'labels',
-            'data',
-
-            'expenseCategoryLabels',
-            'expenseCategorySums',
-
-            'lastfewExpenses',
-
-            'CMlabels',
-            'CMdata'
-
-        ));
-
+        return view('layouts.index', compact('storyData'));
     }
-    // public function index()
-    // {
-    //     //
-    //     return view('backend.index');
-    // }
 
     /**
      * Show the form for creating a new resource.

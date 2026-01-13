@@ -1,50 +1,62 @@
-<!DOCTYPE html>
-<html>
-<head>
-    <title>Excel Data</title>
-    <style>
-        table { border-collapse: collapse; width: 100%; }
-        th, td { border: 1px solid #ddd; padding: 8px; }
-    </style>
-</head>
-<body>
+@extends('layouts.app')
 
-<h2>Excel Sheet Data</h2>
+@section('title')
+    Home
+@endsection
 
-@foreach($users as $user)
-    <div class="user-row">
-        {{-- Accessing direct properties --}}
-        <p>Name: {{ $user->name }}</p>
-        <p>Email: {{ $user->email }}</p>
-
-        {{-- Accessing the related address --}}
-        @if($user->address)
-            {{-- Note: address might still be a collection/array, use [] or -> accordingly --}}
-            <p>City: {{ $user->address['city'] ?? 'No City' }}</p>
-        @endif
-    </div>
-    <hr>
-@endforeach
+@section('admin')
 
 
-{{-- <table>
-    <thead>
-        <tr>
-            @foreach ($header as $head)
-                <th>{{ $head }}</th>
-            @endforeach
-        </tr>
-    </thead>
-    <tbody>
-        @foreach ($rows as $row)
-            <tr>
-                @foreach ($row as $cell)
-                    <td>{{ $cell }}</td>
-                @endforeach
-            </tr>
-        @endforeach
-    </tbody>
-</table> --}}
+<div class="page-content">
+                    <div class="lg-container-fluid p-0">
+                        
 
-</body>
-</html>
+
+
+                        <div class="row">
+                            <div class="col-12">
+                                <div class="card story-card gradient-border">
+                                    <div class="card-body">
+                                        <header class="story-header">
+                                            <h2>Story ID: {{ $story['story_id'] }}</h2>
+                                        </header>
+
+                                        <div class="pt-1 story-content">
+                                            <p class="text-bold">
+                                                @foreach(explode("\n\n", $story['english'] ?? '') as $paragraph)
+                                                    <p>{{ $paragraph }}</p>
+                                                @endforeach
+                                            </p>
+                                            <p class="text-muted text-truncate mb-2">
+                                                @foreach(explode("\n\n", $story['bangla'] ?? '') as $paragraph)
+                                                    <p>{{ $paragraph }}</p>
+                                                @endforeach
+                                            </p>
+                                            <p class="text-muted text-truncate mb-2">
+                                                
+                                            </p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- end col -->
+
+                        </div>
+                        <!-- end row -->
+                    </div>
+                    
+                </div>
+                <!-- End Page-content -->
+
+
+@endsection
+
+
+@section('scripts')
+
+<script>
+
+</script>
+
+
+@endsection

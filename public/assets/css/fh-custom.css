@@ -532,7 +532,7 @@ a {
   font-size: 18px;
   line-height: 23px;
   font-weight: 600;
-  color: #fff;
+  color: #f37005;
 }
 
 
@@ -548,4 +548,14 @@ a {
   -webkit-box-shadow: -1px 0px 20px rgba(0, 0, 0, 0.05);
   box-shadow: -1px 0px 20px rgba(0, 0, 0, 0.05);
   background-color: #fff;
+}
+
+
+
+
+@media (max-width: 765px) {
+  .story-card .card-body {
+    padding: 35px 0;
+    text-align: center;
+  }
 }

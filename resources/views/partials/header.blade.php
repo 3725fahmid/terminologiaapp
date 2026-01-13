@@ -4,7 +4,7 @@
         <div class="d-flex">
 
             <!-- LOGO -->
-            <div class="mx-3 px-3">
+            <div class="lg-mx-3 mx-1 lg-px-3 px-1">
                 <a href="{{ route('home') }}" class="logo logo-light">
                     <span class="logo-sm">
                         <img src="{{ asset('assets/images/logo-light-sm.svg') }}" alt="logo-sm-light" height="22">
