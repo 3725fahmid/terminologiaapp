@@ -62,15 +62,6 @@
 
                             <div class="card pt-3">
                             <div class="row">
-                                <div class="col-12 col-md-6 col-lg-3">
-
-                                    <div class="card-flip mb-3">
-                                        <div class="content">
-                                            <div class="front">{{ $story['story_id'] }}</div>
-                                            <div class="back">Back!</div>
-                                        </div>
-                                    </div>
-                                </div>
                                 
                                 <div class="col-12 col-md-6 col-lg-3">
                                     <div class="card-flip mb-3">
@@ -81,31 +72,19 @@
                                     </div>
                                 </div>
                                 
+                                
                                 <div class="col-12 col-md-6 col-lg-3">
-                                    <div class="card-flip mb-3">
-                                        <div class="content">
-                                            <div class="front">Front</div>
-                                            <div class="back">Back!</div>
+                                    <div class="scene scene--card">
+                                        <div class="scene-card" 
+                                            data-bs-toggle="tooltip"
+                                            data-bs-placement="top"
+                                            title="Click card to flip"
+                                        >
+                                            <div class="card__face card__face--front">front</div>
+                                            <div class="card__face card__face--back">back</div>
                                         </div>
                                     </div>
-                                </div>
-
-                                <div class="col-12 col-md-6 col-lg-3">
-                                    <div class="card-flip mb-3">
-                                        <div class="content">
-                                            <div class="front">Front</div>
-                                            <div class="back">Back!</div>
-                                        </div>
-                                    </div>
-                                </div>
-
-                                <div class="col-12 col-md-6 col-lg-3">
-                                    <div class="card-flip mb-3">
-                                        <div class="content">
-                                            <div class="front">Front</div>
-                                            <div class="back">Back!</div>
-                                        </div>
-                                    </div>
+                                    <p>Click card to flip.</p>
                                 </div>
                                 
                                 
@@ -130,7 +109,10 @@
 @section('scripts')
 
 <script>
-
+var card = document.querySelector('.scene-card');
+card.addEventListener( 'click', function() {
+  card.classList.toggle('is-flipped');
+});
 </script>
 
 
