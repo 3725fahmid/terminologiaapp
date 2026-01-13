@@ -8,14 +8,16 @@
 
 
 <div class="page-content">
+            <div class="card">
+                <div class="card-body">
+                    <a href="{{route('home')}}">Home</a>
+
+                </div>
+            </div>
                     <div class="lg-container-fluid p-0">
-                        
-
-
-
                         <div class="row">
                             <div class="col-12">
-                                <div class="card story-card gradient-border">
+                                <div class="card story-card">
                                     <div class="card-body">
                                         <header class="story-header">
                                             <h2>Story ID: {{ $story['story_id'] }}</h2>
@@ -28,6 +30,23 @@
                                                 @endforeach
                                             </p>
                                             <p class="text-muted text-truncate mb-2">
+                                                
+                                            </p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- end col -->
+
+                            <div class="col-12">
+                                <div class="card story-card">
+                                    <div class="card-body">
+                                        <header class="story-header">
+                                            <h2>Story ID: {{ $story['story_id'] }}</h2>
+                                        </header>
+
+                                        <div class="pt-1 story-content">
+                                            <p class="text-muted text-truncate mb-2">
                                                 @foreach(explode("\n\n", $story['bangla'] ?? '') as $paragraph)
                                                     <p>{{ $paragraph }}</p>
                                                 @endforeach
@@ -39,6 +58,62 @@
                                     </div>
                                 </div>
                             </div>
+                            <!-- end col -->
+
+                            <div class="card pt-3">
+                            <div class="row">
+                                <div class="col-12 col-md-6 col-lg-3">
+
+                                    <div class="card-flip mb-3">
+                                        <div class="content">
+                                            <div class="front">{{ $story['story_id'] }}</div>
+                                            <div class="back">Back!</div>
+                                        </div>
+                                    </div>
+                                </div>
+                                
+                                <div class="col-12 col-md-6 col-lg-3">
+                                    <div class="card-flip mb-3">
+                                        <div class="content">
+                                            <div class="front">Front</div>
+                                            <div class="back">Back!</div>
+                                        </div>
+                                    </div>
+                                </div>
+                                
+                                <div class="col-12 col-md-6 col-lg-3">
+                                    <div class="card-flip mb-3">
+                                        <div class="content">
+                                            <div class="front">Front</div>
+                                            <div class="back">Back!</div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="col-12 col-md-6 col-lg-3">
+                                    <div class="card-flip mb-3">
+                                        <div class="content">
+                                            <div class="front">Front</div>
+                                            <div class="back">Back!</div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="col-12 col-md-6 col-lg-3">
+                                    <div class="card-flip mb-3">
+                                        <div class="content">
+                                            <div class="front">Front</div>
+                                            <div class="back">Back!</div>
+                                        </div>
+                                    </div>
+                                </div>
+                                
+                                
+                                
+                            </div>
+
+                            </div>
+
                             <!-- end col -->
 
                         </div>

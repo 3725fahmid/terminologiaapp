@@ -33,7 +33,7 @@ Route::middleware('auth')->group(function () {
     });
 
     // Pages Route 
-    Route::get('storydata/{id}', [StoryController::class, 'storydata'])
+    Route::get('insights/{id}', [StoryController::class, 'storydata'])
         ->name('story.storydata');
     Route::resource('story', StoryController::class);
     Route::resource('account', AccountController::class);
