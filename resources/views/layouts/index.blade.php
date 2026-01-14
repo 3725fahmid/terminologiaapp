@@ -36,7 +36,7 @@
 
                                 @foreach ($storyData as $item)
                                 @if(isset($item['story_id']))
-                                    <a href="{{ route('story.storydata',['id' => $item['story_id']]) }}" class="story-link">
+                                <a href="{{ Route('story.show',$item['story_id'])}}" class="story-link">
                                         <div class="card story-card gradient-border">
                                             <div class="card-body">
                                                 <header class="story-header">

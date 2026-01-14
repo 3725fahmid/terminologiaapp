@@ -71,35 +71,27 @@ class StoryController extends Controller
         // return view('story.index',compact('rows', 'header'));
     }
 
-    public function storydata($id)
+    public function wordDetails($id)
     {
 
-        // Import the Excel file
-        $collections = Excel::toCollection(new class implements WithHeadingRow {
+        $word_collections = Excel::toCollection(new class implements WithHeadingRow {
             public function headingRow(): int
             {
                 return 1; // First row as heading
             }
-        }, public_path('storyassets/story.xlsx'));
+        }, public_path('storyassets/story_words.xlsx'));
 
         // Get the first sheet as array of rows
-        $storyData = $collections->first()->map(function ($row) {
+        $wordData = $word_collections->first()->map(function ($row) {
             return array_map('trim', $row->toArray());
         });
 
         // Find the story with the matching story_id
-        $story = $storyData->firstWhere('story_id', $id);
+        $word_details = $wordData->firstWhere('id', $id);
 
-        // Optional: handle case if story not found
-        if (!$story) {
-            abort(404, 'Story not found');
-        }
+        // dd($word_details);
 
-        // dd($story);
-        // Pass the story to a Blade view
-        return view('story.index', compact('story'));
-        // return view('story.index', ['users' => $usersWithAddress]);
-
+        return view('worddetails.index', compact('word_details'));
     }
 
     /**
@@ -132,7 +124,52 @@ class StoryController extends Controller
     public function show($id)
     {
         //
-        dd($id);
+
+        // Import the Excel file
+        $story_collections = Excel::toCollection(new class implements WithHeadingRow {
+            public function headingRow(): int
+            {
+                return 1; // First row as heading
+            }
+        }, public_path('storyassets/story.xlsx'));
+
+        $word_collections = Excel::toCollection(new class implements WithHeadingRow {
+            public function headingRow(): int
+            {
+                return 1; // First row as heading
+            }
+        }, public_path('storyassets/story_words.xlsx'));
+
+
+        // Get the first sheet as array of rows
+        $storyData = $story_collections->first()->map(function ($row) {
+            return array_map('trim', $row->toArray());
+        });
+
+        // Get the first sheet as array of rows
+        $wordData = $word_collections->first()->map(function ($row) {
+            return array_map('trim', $row->toArray());
+        });
+
+        // Find the story with the matching story_id
+        $story = $storyData->firstWhere('story_id', $id);
+
+        // Find the word with the matching story_id 
+        $words = $wordData->Where('story_id', $id);
+
+        // dd($words);
+
+        // Optional: handle case if story not found
+        if (!$story) {
+            abort(404, 'Story not found');
+        }
+
+        // dd($story);
+        // Pass the story to a Blade view
+        return view('story.index', compact('story', 'words'));
+        // return view('story.index', ['users' => $usersWithAddress]);
+
+
     }
 
     /**

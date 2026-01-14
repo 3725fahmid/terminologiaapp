@@ -60,45 +60,40 @@
                             </div>
                             <!-- end col -->
 
-                            <div class="card pt-3">
-                            <div class="row">
+                            <div class="col-12">
+                                <div class="card p-3">
+                                    <div class="row">
+                                        {{-- <div class="col-12 col-md-6 col-lg-3">
+                                            <div class="card-flip mb-3">
+                                                <div class="content">
+                                                    <div class="front">Front</div>
+                                                    <div class="back">Back!</div>
+                                                </div>
+                                            </div>
+                                        </div> --}}
                                 
-                                <div class="col-12 col-md-6 col-lg-3">
-                                    <div class="card-flip mb-3">
-                                        <div class="content">
-                                            <div class="front">Front</div>
-                                            <div class="back">Back!</div>
+                                        @foreach($words as $item)
+                                        <div class="col-12 col-md-6 col-lg-4 col-xxl-3 mb-1">
+                                            <div class="scene scene--card">
+                                                <div class="scene-card" 
+                                                    data-bs-toggle="tooltip"
+                                                    data-bs-placement="top"
+                                                    title="Click card to flip"
+                                                >
+                                                    <div class="card__face card__face--front">{{ $item['word'] }}</div>
+                                                    <div class="card__face card__face--back">{{ $item['wordmeaning'] }}</div>
+                                                </div>
+                                            </div>
+                                            <a href="{{Route('story.worddata',$item['id'])}}" class="btn btn-primary mb-3">Details about {{ $item['word'] }}</a>
                                         </div>
+                                        @endforeach
                                     </div>
                                 </div>
-                                
-                                
-                                <div class="col-12 col-md-6 col-lg-3">
-                                    <div class="scene scene--card">
-                                        <div class="scene-card" 
-                                            data-bs-toggle="tooltip"
-                                            data-bs-placement="top"
-                                            title="Click card to flip"
-                                        >
-                                            <div class="card__face card__face--front">front</div>
-                                            <div class="card__face card__face--back">back</div>
-                                        </div>
-                                    </div>
-                                    <p>Click card to flip.</p>
-                                </div>
-                                
-                                
-                                
                             </div>
-
-                            </div>
-
                             <!-- end col -->
-
                         </div>
                         <!-- end row -->
                     </div>
-                    
                 </div>
                 <!-- End Page-content -->
 
@@ -109,9 +104,15 @@
 @section('scripts')
 
 <script>
-var card = document.querySelector('.scene-card');
-card.addEventListener( 'click', function() {
-  card.classList.toggle('is-flipped');
+// var card = document.querySelectorAll('.scene-card');
+// card.addEventListener( 'click', function() {
+//   card.classList.toggle('is-flipped');
+// });
+
+document.querySelectorAll('.scene-card').forEach(card => {
+    card.addEventListener('click', function () {
+        this.classList.toggle('is-flipped');
+    });
 });
 </script>
 
