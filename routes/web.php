@@ -1,10 +1,6 @@
 <?php
 
-use App\Http\Controllers\AccountController;
 use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\ExpenseCategoryController;
-use App\Http\Controllers\ExpenseItemController;
-use App\Http\Controllers\ExpeseFilterController;
 use App\Http\Controllers\HomepageController;
 use App\Http\Controllers\SettingController;
 use App\Http\Controllers\StoryController;
@@ -36,15 +32,10 @@ Route::middleware('auth')->group(function () {
     Route::get('insights/{id}', [StoryController::class, 'wordDetails'])
         ->name('story.worddata');
     Route::resource('story', StoryController::class);
-    Route::resource('account', AccountController::class);
-    Route::resource('category', ExpenseCategoryController::class);
-    Route::resource('expense', ExpenseItemController::class);
     Route::get('calender', function () {
         return view('frontend.calender.index');
     });
     Route::resource('setting', SettingController::class);
-    Route::resource('expensefilter', ExpeseFilterController::class);
-    Route::post('/expensefilter', [ExpeseFilterController::class, 'filter'])->name('expensefilter.filter');
 });
 
 

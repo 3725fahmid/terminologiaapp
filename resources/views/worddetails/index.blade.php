@@ -1,7 +1,7 @@
 @extends('layouts.app')
 
 @section('title')
-   Word - {{ $word_details['word'] }}
+   Word- {{ $word_details['word'] }}
 @endsection
 
 @section('admin')

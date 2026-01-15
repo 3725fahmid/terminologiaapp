@@ -4,7 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Maatwebsite\Excel\Facades\Excel;
-use App\Imports\ExcelDataImport;
+use Illuminate\Support\Facades\Cache;
 use Maatwebsite\Excel\Concerns\WithHeadingRow;
 
 class StoryController extends Controller
@@ -74,16 +74,18 @@ class StoryController extends Controller
     public function wordDetails($id)
     {
 
-        $word_collections = Excel::toCollection(new class implements WithHeadingRow {
-            public function headingRow(): int
-            {
-                return 1; // First row as heading
-            }
-        }, public_path('storyassets/story_words.xlsx'));
 
-        // Get the first sheet as array of rows
-        $wordData = $word_collections->first()->map(function ($row) {
-            return array_map('trim', $row->toArray());
+        $wordData = Cache::remember('story_words', 3600, function () {
+            $collections = Excel::toCollection(new class implements WithHeadingRow {
+                public function headingRow(): int
+                {
+                    return 1;
+                }
+            }, public_path('storyassets/story_words.xlsx'));
+
+            return $collections->first()->map(function ($row) {
+                return array_map('trim', $row->toArray());
+            });
         });
 
         // Find the story with the matching story_id
@@ -91,7 +93,7 @@ class StoryController extends Controller
 
         if (!$word_details) {
             abort(404);
-        }
+        };
 
         // dd($word_details);
 

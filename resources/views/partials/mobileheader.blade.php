@@ -6,8 +6,11 @@
         <div class="mx-lg-3 mx-1 mt-2 px-lg-3 px-1">
             <div class="dropdown d-lg-inline-block ms-1">
                 <a href="{{route('home')}}" class="waves-effect">
-                    <button type="button" class="btn header-item noti-icon waves-effect">
+                    <button type="button" class="btn header-item noti-icon waves-effect d-flex flex-column align-items-center">
                         <i class="{{ Route::is('home') ? 'ri-home-4-fill' : 'ri-home-4-line' }}"></i>
+                        <span class="small">
+                            Home
+                        </span>
                     </button>
                 </a>
             </div>
@@ -16,9 +19,12 @@
         <!-- Quize Page Btn -->
         <div class="mx-lg-3 mx-1 mt-2 px-lg-3 px-1">
             <div class="dropdown d-lg-inline-block ms-1">
-                <a href="{{ url('category') }}" class="waves-effect">
-                    <button type="button" class="btn header-item noti-icon waves-effect">
-                        <i class="{{ request()->is('category*') ? 'ri-keyboard-box-fill' : 'ri-keyboard-box-line' }}"></i>
+                <a href="#" class="waves-effect">
+                    <button type="button" class="btn header-item noti-icon waves-effect d-flex flex-column align-items-center">
+                        <i class="{{ request()->is('#') ? 'ri-keyboard-box-fill' : 'ri-keyboard-box-line' }}"></i>
+                        <span class="small">
+                            Quize
+                        </span>
                     </button>
                 </a>
             </div>
@@ -27,9 +33,12 @@
         <!-- Report Page Btn-->
         <div class="mx-lg-3 mx-1 mt-2 px-lg-3 px-1">
             <div class="dropdown d-lg-inline-block ms-1">
-                <a href="{{url('account')}}" class="waves-effect">
-                    <button type="button" class="btn header-item noti-icon waves-effect">
-                        <i class="{{ request()->is('account*') ? 'ri-bar-chart-box-fill' : 'ri-bar-chart-box-line' }}"></i>
+                <a href="#" class="waves-effect">
+                    <button type="button" class="btn header-item noti-icon waves-effect d-flex flex-column align-items-center">
+                        <i class="{{ request()->is('#') ? 'ri-bar-chart-box-fill' : 'ri-bar-chart-box-line' }}"></i>
+                        <span class="small">
+                            Report
+                        </span>
                     </button>
                 </a>
             </div>
