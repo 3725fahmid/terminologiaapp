@@ -4,12 +4,12 @@
         <div class="d-flex">
 
             <!-- LOGO -->
-            <div class="lg-mx-3 mx-1 lg-px-3 px-1">
+            <div class="mx-3 px-3">
                 <a href="{{ route('home') }}" class="logo logo-light">
-                    <span class="logo-sm">
+                    {{-- <span class="logo-sm">
                         <img src="{{ asset('assets/images/logo-light-sm.svg') }}" alt="logo-sm-light" height="22">
-                    </span>
-                    <span class="logo-lg">
+                    </span> --}}
+                    <span class="logo">
                         <img src="{{ asset('assets/images/logo-light.svg') }}" alt="logo-light" height="20">
                     </span>
                 </a>
@@ -24,10 +24,10 @@
             </form> --}}
         </div>
 
-        <div class="d-flex">
+        <div class="d-none d-md-flex">
 
             <!-- Home Page Btn -->
-            <div class="lg-mx-3 mx-1 mt-2 lg-px-3 px-1">
+            <div class="mx-lg-3 mx-1 mt-2 px-lg-3 px-1">
                 <div class="dropdown d-lg-inline-block ms-1">
                     <a href="{{route('home')}}" class="waves-effect">
                         <button type="button" class="btn header-item noti-icon waves-effect">
@@ -38,7 +38,7 @@
             </div>
 
             <!-- Quize Page Btn -->
-            <div class="lg-mx-3 mx-1 mt-2 lg-px-3 px-1">
+            <div class="mx-lg-3 mx-1 mt-2 px-lg-3 px-1">
                 <div class="dropdown d-lg-inline-block ms-1">
                     <a href="{{ url('category') }}" class="waves-effect">
                         <button type="button" class="btn header-item noti-icon waves-effect">
@@ -49,7 +49,7 @@
             </div>
 
             <!-- Report Page Btn-->
-            <div class="lg-mx-3 mx-1 mt-2 lg-px-3 px-1">
+            <div class="mx-lg-3 mx-1 mt-2 px-lg-3 px-1">
                 <div class="dropdown d-lg-inline-block ms-1">
                     <a href="{{url('account')}}" class="waves-effect">
                         <button type="button" class="btn header-item noti-icon waves-effect">
@@ -136,7 +136,7 @@
                 </div>
 
                 {{-- Dark mode btn --}}
-                <div class="dropdown d-none d-lg-inline-block ms-1">
+                <div class="dropdown d-inline-block ms-1">
                     <button type="button" class="btn header-item mt-2 noti-icon waves-effect">
                         <div class="checkbox-wrapper-54">
                             <label class="switch" for="mode-switch">
@@ -154,7 +154,7 @@
             $userData = App\Models\User::find($id);
             @endphp
 
-            <div class="dropdown d-inline-block user-dropdown">
+            <div class="dropdown d-none d-md-inline-block d-lg-inline-block user-dropdown">
                 <button type="button" class="btn header-item waves-effect" id="page-header-user-dropdown"
                     data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                     <img class="rounded-circle header-profile-user" src="{{ (!empty($userData->profile_image))? url('upload/user_images/'.$userData->profile_image):url('upload/no_image.jpg') }}"

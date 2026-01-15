@@ -1,16 +1,16 @@
 @extends('layouts.app')
 
 @section('title')
-    Home
+   Word - {{ $word_details['word'] }}
 @endsection
 
 @section('admin')
 
 
 <div class="page-content">
-    <a href="{{ url()->previous() }}" class="btn btn-dark mb-3">
-         ← Back
-     </a>
+    <a href="javascript:history.back()" class="btn btn-dark mb-3">
+        ← Back
+    </a>
     <div class="card shadow rounded-3">
         <div class="card-body">
             <div class="card-header rounded-3">

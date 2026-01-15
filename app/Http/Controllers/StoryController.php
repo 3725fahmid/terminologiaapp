@@ -89,6 +89,10 @@ class StoryController extends Controller
         // Find the story with the matching story_id
         $word_details = $wordData->firstWhere('id', $id);
 
+        if (!$word_details) {
+            abort(404);
+        }
+
         // dd($word_details);
 
         return view('worddetails.index', compact('word_details'));

@@ -89,11 +89,13 @@
                @yield('admin')
                 <!-- End Page-content -->
 
-                @include('partials.footer')
+                {{-- @include('partials.footer') --}}
 
 
             </div>
             <!-- end main content-->
+
+            @include('partials.mobileheader')
 
         </div>
         <!-- END layout-wrapper -->

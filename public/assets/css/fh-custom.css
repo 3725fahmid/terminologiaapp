@@ -558,6 +558,17 @@ a {
     padding: 35px 0;
     text-align: center;
   }
+
+  #footer-bar {
+    position: fixed;
+    bottom: 0;
+    right: 0;
+    left: 0;
+    z-index: 1002;
+    background-color: #272d3e;
+    -webkit-box-shadow: 0 2px 4px rgba(0, 0, 0, .08);
+    box-shadow: 0 2px 4px rgba(0, 0, 0, .08);
+  }
 }
 
 
