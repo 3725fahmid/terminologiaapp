@@ -16,7 +16,7 @@
             <div class="card-header shadow-lg rounded-3">
                 <h1>{{ $word_details['word'] }}</h1>
                 <hr>
-                Meaning: <h2 class="text-warning">
+                 <h2 class="text-warning">Meaning:
                     {{-- {{ $word_details['wordmeaning'] }} --}}
                     @foreach(explode(',', $word_details['wordmeaning']) as $syn)
                         <span class="badge bg-success rounded-0">{{ trim($syn) }}</span>
@@ -24,7 +24,11 @@
                 </h2>
             </div>
             <div class="card-body">
-                <h4 class="text-mute">{{ $word_details['easy_spelling'] }}</h4>
+                <i class="mdi mdi-voice d-inline-block"></i>
+                <button type="button" class="btn header-item noti-icon waves-effect">
+                    <i class="ri-speak-line"></i>
+                </button>
+                <h4 class="text-primary"><i class="ri-speak-line"></i> {{ $word_details['easy_spelling'] }}</h4>
             </div>
         </div>
     </div>
