@@ -13,10 +13,15 @@
     </a>
     <div class="card shadow rounded-3">
         <div class="card-body">
-            <div class="card-header rounded-3">
+            <div class="card-header shadow-lg rounded-3">
                 <h1>{{ $word_details['word'] }}</h1>
                 <hr>
-                Meaning: <h4 class="text-warning">{{ $word_details['wordmeaning'] }}</h4>
+                Meaning: <h2 class="text-warning">
+                    {{-- {{ $word_details['wordmeaning'] }} --}}
+                    @foreach(explode(',', $word_details['wordmeaning']) as $syn)
+                        <span class="badge bg-success rounded-0">{{ trim($syn) }}</span>
+                    @endforeach
+                </h2>
             </div>
             <div class="card-body">
                 <h4 class="text-mute">{{ $word_details['easy_spelling'] }}</h4>
@@ -27,18 +32,55 @@
     <div class="card rounded-3">
         <div class="card-body">
             <div class="card-header rounded-3">
+            </div>
+            <div class="card-body">
                 Synonyms:
                 <h5>
                     {{-- {{ $word_details['synonyms'] }} --}}
                     @foreach(explode(',', $word_details['synonyms']) as $syn)
                         <span class="badge bg-info">{{ trim($syn) }}</span>
                     @endforeach
-
+    
                 </h5>
                 <hr>
-                Meaning: <h4 class="text-warning">{{ $word_details['wordmeaning'] }}</h4>
+                <h4 class="text-mute">{{ $word_details['easy_spelling'] }}</h4>
+            </div>
+        </div>
+    </div>
+
+    <div class="card rounded-3">
+        <div class="card-body">
+            <div class="card-header rounded-3">
             </div>
             <div class="card-body">
+                Antonyms:
+                <h5>
+                    {{-- {{ $word_details['synonyms'] }} --}}
+                    @foreach(explode(',', $word_details['antonyms']) as $syn)
+                        <span class="badge bg-info">{{ trim($syn) }}</span>
+                    @endforeach
+    
+                </h5>
+                <hr>
+                <h4 class="text-mute">{{ $word_details['easy_spelling'] }}</h4>
+            </div>
+        </div>
+    </div>
+
+    <div class="card rounded-3">
+        <div class="card-body">
+            <div class="card-header rounded-3">
+            </div>
+            <div class="card-body">
+                Tactic:
+                <h5>
+                    {{-- {{ $word_details['synonyms'] }} --}}
+                    @foreach(explode(',', $word_details['tactic']) as $syn)
+                        <span class="badge bg-info">{{ trim($syn) }}</span>
+                    @endforeach
+    
+                </h5>
+                <hr>
                 <h4 class="text-mute">{{ $word_details['easy_spelling'] }}</h4>
             </div>
         </div>
