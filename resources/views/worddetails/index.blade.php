@@ -24,11 +24,11 @@
                 </h2>
             </div>
             <div class="card-body">
-                <i class="mdi mdi-voice d-inline-block"></i>
-                <button type="button" class="btn header-item noti-icon waves-effect">
-                    <i class="ri-speak-line"></i>
+                {{-- <i class="mdi mdi-voice d-inline-block"></i> --}}
+                <button type="button" class="btn header-item noti-icon waves-effect d-flex gap-2">
+                    <i class="ri-user-voice-fill"></i>
+                    <h2 class="inline-block text-primary"> {{ $word_details['easy_spelling'] }}</h2>
                 </button>
-                <h4 class="text-primary"><i class="ri-speak-line"></i> {{ $word_details['easy_spelling'] }}</h4>
             </div>
         </div>
     </div>
@@ -38,16 +38,23 @@
             <div class="card-header rounded-3">
             </div>
             <div class="card-body">
-                Synonyms:
+                <span class="text-lg">Synonyms:</span>
                 <h5>
                     {{-- {{ $word_details['synonyms'] }} --}}
                     @foreach(explode(',', $word_details['synonyms']) as $syn)
-                        <span class="badge bg-info">{{ trim($syn) }}</span>
+                        <span class="badge text-lg bg-info">{{ trim($syn) }}</span>
                     @endforeach
     
                 </h5>
                 <hr>
-                <h4 class="text-mute">{{ $word_details['easy_spelling'] }}</h4>
+                Antonyms:
+                <h5>
+                    {{-- {{ $word_details['synonyms'] }} --}}
+                    @foreach(explode(',', $word_details['antonyms']) as $syn)
+                        <span class="badge bg-info">{{ trim($syn) }}</span>
+                    @endforeach
+    
+                </h5>
             </div>
         </div>
     </div>

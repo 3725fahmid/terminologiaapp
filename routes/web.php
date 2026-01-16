@@ -2,6 +2,7 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\HomepageController;
+use App\Http\Controllers\QuizController;
 use App\Http\Controllers\SettingController;
 use App\Http\Controllers\StoryController;
 use App\Http\Controllers\UserProfileController;
@@ -23,7 +24,6 @@ Route::middleware('auth')->group(function () {
         Route::get('/profile', 'Profile')->name('profile');
         Route::get('/edit/profile', 'EditProfile')->name('edit.profile');
         Route::post('/store/profile', 'StoreProfile')->name('store.profile');
-
         Route::get('/change/password', 'ChangePassword')->name('change.password');
         Route::post('/update/password', 'UpdatePassword')->name('update.password');
     });
@@ -32,9 +32,7 @@ Route::middleware('auth')->group(function () {
     Route::get('insights/{id}', [StoryController::class, 'wordDetails'])
         ->name('story.worddata');
     Route::resource('story', StoryController::class);
-    Route::get('calender', function () {
-        return view('frontend.calender.index');
-    });
+    Route::resource('quiz', QuizController::class);
     Route::resource('setting', SettingController::class);
 });
 
