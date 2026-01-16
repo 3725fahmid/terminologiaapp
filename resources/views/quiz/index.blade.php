@@ -13,18 +13,32 @@
     </a>
     <div class="card shadow rounded-3">
         <div class="card-body">
-            <div class="card-header shadow-lg rounded-3">
-                
-            </div>
-            <div class="card-body">
-                {{-- <i class="mdi mdi-voice d-inline-block"></i> --}}
-                <button type="button" class="btn header-item noti-icon waves-effect d-flex gap-2">
-                    <i class="ri-user-voice-fill"></i>
-                    <h2 class="inline-block text-primary"></h2>
-                </button>
-            </div>
+            <table class="table table-bordered table-striped align-middle mb-0">
+                <thead class="table-light">
+                    <tr>
+                        <th width="60">#</th>
+                        <th>User</th>
+                        <th>Action</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>1</td>
+                        <td class="text-primary fw-semibold">
+                            <i class="ri-user-voice-fill me-2"></i>
+                            User Voice
+                        </td>
+                        <td>
+                            <button type="button" class="btn btn-sm btn-primary">
+                                Listen
+                            </button>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
         </div>
     </div>
+
 
     {{-- id" => "11"
   "story_id" => "3"

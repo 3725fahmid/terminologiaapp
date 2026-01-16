@@ -19,9 +19,9 @@
         <!-- Quize Page Btn -->
         <div class="mx-lg-3 mx-1 mt-2 px-lg-3 px-1">
             <div class="dropdown d-lg-inline-block ms-1">
-                <a href="#" class="waves-effect">
+                <a href="{{url('quiz')}}" class="waves-effect">
                     <button type="button" class="btn header-item noti-icon waves-effect d-flex flex-column align-items-center">
-                        <i class="{{ request()->is('#') ? 'ri-keyboard-box-fill' : 'ri-keyboard-box-line' }}"></i>
+                        <i class="{{ request()->is('quiz') ? 'ri-keyboard-box-fill' : 'ri-keyboard-box-line' }}"></i>
                         <span class="small">
                             Quize
                         </span>
