@@ -14,7 +14,7 @@
 
 
         {{-- OPTIONS CARD --}}
-        <div class="col-5 col-lg-6 h-100">
+        <div class="col-12 col-lg-6 h-100">
             <div class="card shadow-sm rounded-4">
                 <div class="card-header bg-white fw-bold">
                     Options (Drag & Drop)
@@ -44,25 +44,12 @@
                     </div>
                 </div>
 
-                {{-- ACTIONS --}}
-                <div class="d-flex gap-1 mt-4">
-                    <button class="btn btn-primary px-4 check-answer">
-                        Submit
-                    </button>
-            
-                    <button class="btn btn-outline-secondary px-4 reset-btn d-none">
-                        Reset
-                    </button>
-                </div>
-            
-                <div class="score-card mt-3 fw-bold"></div>
-
 
             </div>
         </div>
 
         {{-- QUESTION CARD --}}
-        <div class="col-7 col-lg-6">
+        <div class="col-12 col-lg-6">
             <div class="card shadow-sm rounded-4">
                 <div class="card-header bg-white fw-bold">
                     Questions
@@ -97,6 +84,18 @@
         </div>
         
 
+        {{-- ACTIONS --}}
+                <div class="d-flex gap-1 mt-4">
+                    <button class="btn btn-primary px-4 check-answer w-100">
+                        Submit
+                    </button>
+            
+                    <button class="btn btn-outline-secondary px-4 reset-btn d-none">
+                        Reset
+                    </button>
+                </div>
+            
+                <div class="score-card mt-3 fw-bold"></div>
         
 
     </div>
