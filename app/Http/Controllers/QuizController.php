@@ -3,6 +3,9 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Maatwebsite\Excel\Facades\Excel;
+use Illuminate\Support\Facades\Cache;
+use Maatwebsite\Excel\Concerns\WithHeadingRow;
 
 class QuizController extends Controller
 {
@@ -14,7 +17,80 @@ class QuizController extends Controller
     public function index()
     {
         //
-        return view('quiz.index');
+
+        $wordData = Cache::remember('story_words', 3600, function () {
+            $collections = Excel::toCollection(new class implements WithHeadingRow {
+                public function headingRow(): int
+                {
+                    return 1;
+                }
+            }, public_path('storyassets/story_words.xlsx'));
+
+            return $collections->first()->map(function ($row) {
+                return array_map('trim', $row->toArray());
+            });
+        });
+
+        // Get ALL words where story_id = 1
+        $words = $wordData->where('story_id', 1)->values();
+
+        if ($words->isEmpty()) {
+            abort(404);
+        }
+
+        // dd($words->word);
+
+        // "id" => "1"
+        // "story_id" => "1"
+        // "word" => "Brave"
+        // "easy_spelling" => "Brave"
+        // "wordmeaning" => "Showing courage and confidence"
+        // "synonyms" => "Courageous, Bold"
+        // "antonyms" => "Cowardly, Afraid"
+        // "tactic" => "Remember heroes are brave"
+        // "example" => "He was brave during the storm."
+
+        return view('quiz.index', compact('words'));
+    }
+
+
+    public function dragDrop($id)
+    {
+        //
+
+        $wordData = Cache::remember('story_words', 3600, function () {
+            $collections = Excel::toCollection(new class implements WithHeadingRow {
+                public function headingRow(): int
+                {
+                    return 1;
+                }
+            }, public_path('storyassets/story_words.xlsx'));
+
+            return $collections->first()->map(function ($row) {
+                return array_map('trim', $row->toArray());
+            });
+        });
+
+        // Get ALL words where story_id = 1
+        $words = $wordData->where('story_id', $id)->values();
+
+        if ($words->isEmpty()) {
+            abort(404);
+        }
+
+        // dd($words->word);
+
+        // "id" => "1"
+        // "story_id" => "1"
+        // "word" => "Brave"
+        // "easy_spelling" => "Brave"
+        // "wordmeaning" => "Showing courage and confidence"
+        // "synonyms" => "Courageous, Bold"
+        // "antonyms" => "Cowardly, Afraid"
+        // "tactic" => "Remember heroes are brave"
+        // "example" => "He was brave during the storm."
+
+        return view('quiz.dragableqn', compact('words'));
     }
 
     /**

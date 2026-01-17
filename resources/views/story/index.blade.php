@@ -4,14 +4,14 @@
 
 @section('admin')
 
-<div class="container my-4">
+<div class="page-content">
 
     <!-- Top Navigation -->
+    <a href="{{ route('home') }}" class="btn btn-dark fw-semibold text-decoration-none mb-2">
+        ← Back to Home
+    </a>
     <div class="card border-0 shadow-sm rounded-4 mb-4">
         <div class="card-body py-2">
-            <a href="{{ route('home') }}" class="fw-semibold text-decoration-none">
-                ← Back to Home
-            </a>
         </div>
     </div>
 

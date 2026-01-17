@@ -33,6 +33,8 @@ Route::middleware('auth')->group(function () {
         ->name('story.worddata');
     Route::resource('story', StoryController::class);
     Route::resource('quiz', QuizController::class);
+    Route::get('quiz/dragdrop/{id}', [QuizController::class, 'dragDrop'])
+        ->name('quiz.drag_deop');
     Route::resource('setting', SettingController::class);
 });
 
