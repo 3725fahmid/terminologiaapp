@@ -68,7 +68,8 @@
                         <div class="card-body">
                             <h5 class="fw-semibold mb-3">Synonyms</h5>
                             @foreach(explode(',', $word_details['synonyms']) as $syn)
-                                <span class="badge bg-info">
+                                <span class="badge rounded-pill bg-info bg-opacity-10 text-info border border-info px-3 py-2 fw-bold" 
+                                        style="font-size: 1rem; letter-spacing: 0.5px;">
                                     {{ trim($syn) }}
                                 </span>
                             @endforeach
@@ -81,7 +82,8 @@
                         <div class="card-body">
                             <h5 class="fw-semibold mb-3">Antonyms</h5>
                             @foreach(explode(',', $word_details['antonyms']) as $ant)
-                                <span class="badge bg-warning text-dark">
+                                <span class="badge rounded-pill bg-warning bg-opacity-10 text-dark border border-warning px-3 py-2 fw-bold" 
+                                        style="font-size: 1rem; letter-spacing: 0.5px;">
                                     {{ trim($ant) }}
                                 </span>
                             @endforeach
