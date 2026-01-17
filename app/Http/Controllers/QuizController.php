@@ -18,39 +18,35 @@ class QuizController extends Controller
     {
         //
 
-        $wordData = Cache::remember('story_words', 3600, function () {
+        // Cache the story data for 1 hour (3600 seconds)
+        $storyData = Cache::remember('story_data', 3600, function () {
             $collections = Excel::toCollection(new class implements WithHeadingRow {
                 public function headingRow(): int
                 {
                     return 1;
                 }
-            }, public_path('storyassets/story_words.xlsx'));
+            }, public_path('storyassets/story.xlsx'));
 
             return $collections->first()->map(function ($row) {
-                return array_map('trim', $row->toArray());
-            });
+                $rowArray = array_map('trim', $row->toArray());
+
+                // Skip rows without story_id
+                if (!isset($rowArray['story_id']) || empty($rowArray['story_id'])) {
+                    return null;
+                }
+
+                return $rowArray;
+            })->filter(); // remove null rows
         });
 
-        // Get ALL words where story_id = 1
-        $words = $wordData->where('story_id', 1)->values();
-
-        if ($words->isEmpty()) {
+        if ($storyData->isEmpty()) {
             abort(404);
         }
 
-        // dd($words->word);
 
-        // "id" => "1"
-        // "story_id" => "1"
-        // "word" => "Brave"
-        // "easy_spelling" => "Brave"
-        // "wordmeaning" => "Showing courage and confidence"
-        // "synonyms" => "Courageous, Bold"
-        // "antonyms" => "Cowardly, Afraid"
-        // "tactic" => "Remember heroes are brave"
-        // "example" => "He was brave during the storm."
+        // dd($storyData);
 
-        return view('quiz.index', compact('words'));
+        return view('quiz.index', compact('storyData'));
     }
 
 
@@ -123,6 +119,28 @@ class QuizController extends Controller
     public function show($id)
     {
         //
+
+        $wordData = Cache::remember('story_words', 3600, function () {
+            $collections = Excel::toCollection(new class implements WithHeadingRow {
+                public function headingRow(): int
+                {
+                    return 1;
+                }
+            }, public_path('storyassets/story_words.xlsx'));
+
+            return $collections->first()->map(function ($row) {
+                return array_map('trim', $row->toArray());
+            });
+        });
+
+        // Get ALL words where story_id = 1
+        $words = $wordData->where('story_id', $id)->values();
+
+        if ($words->isEmpty()) {
+            abort(404);
+        }
+
+        return view('quiz.quizmode', compact('words'));
     }
 
     /**

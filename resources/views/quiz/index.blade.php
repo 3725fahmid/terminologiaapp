@@ -1,131 +1,76 @@
 @extends('layouts.app')
 
-@section('title', 'Quiz')
+@section('title', 'Stories')
 
 @section('admin')
 
-<div class="container py-4">
+<div class="page-content">
 
-    <!-- Back Button -->
-    <a href="javascript:history.back()" class="btn btn-outline-dark mb-4">
-        ← Back
-    </a>
+    <!-- HEADER -->
+    <div class="text-center mb-5">
+        <h3 class="fw-bold mb-1 text-dark">
+            Learning Stories
+        </h3>
+        <p class="text-muted mb-0">
+            Choose a story and start learning
+        </p>
+    </div>
 
-    <div class="row">
+    <div class="row g-4">
 
-        {{-- OPTIONS CARD --}}
-        <div class="col-12 col-lg-6 h-100 mb-3">
-            <div class="card shadow-sm rounded-4">
-                <div class="card-header bg-white fw-bold">
-                    Chose correct Options
-                </div>
-                <div class="card-body">
-                    <div class="row g-2 options-area">
+        @foreach ($storyData as $item)
+            @if(isset($item['story_id']))
 
-                        @foreach($words as $opt)
-                            <div class="col-12 col-sm-6">
-                                <div class="option-card drag-item" data-id="{{ $opt['id'] }}">
-                                    {{ $opt['wordmeaning'] }}
-                                </div>
+            <div class="col-12 col-sm-6 col-md-4 col-xl-3">
+
+                <a href="{{ route('quiz.show', $item['story_id']) }}"
+                   class="text-decoration-none">
+
+                    <div class="card h-100 border-0 rounded-4 edu-card">
+
+                        <div class="card-body p-4 d-flex flex-column">
+
+                            <!-- TOP BADGE -->
+                            <div class="d-flex justify-content-between align-items-center mb-3">
+                                <span class="edu-badge">
+                                    Story {{ $item['story_id'] }}
+                                </span>
+
+                                <span class="edu-dot"></span>
                             </div>
-                        @endforeach
+
+                            <!-- TITLE -->
+                            <h6 class="fw-bold text-dark mb-1">
+                                Reading Practice
+                            </h6>
+
+                            <!-- SUBTEXT -->
+                            <p class="text-muted small mb-0">
+                                Improve vocabulary and comprehension
+                            </p>
+
+                            <!-- FOOTER -->
+                            <div class="mt-auto pt-4">
+                                <span class="edu-link">
+                                    Start Learning →
+                                </span>
+                            </div>
+
+                        </div>
 
                     </div>
-                </div>
+
+                </a>
+
             </div>
-        </div>
 
-        {{-- QUESTIONS CARD --}}
-        <div class="col-12 col-lg-6 mb-3">
-            <div class="card shadow-sm rounded-4">
-                <div class="card-header bg-white fw-bold">
-                    Questions
-                </div>
-                <div class="card-body">
-
-                    @foreach($words as $i => $item)
-                        <div class="question-card mb-3">
-                            <div class="fw-semibold mb-1">
-                                {{ $i + 1 }}. {{ $item['word'] }}
-                            </div>
-                            <div class="answer-box border border-secondary rounded p-2" 
-                                 data-id="{{ $item['id'] }}" 
-                                 data-index="{{ $i }}">
-                                Drop answer here
-                            </div>
-                        </div>
-                    @endforeach
-
-                </div>
-            </div>
-        </div>
-
-        {{-- ACTION BUTTONS --}}
-        <div class="col-12 d-flex gap-2 mt-3">
-            <button class="btn btn-primary px-4 check-answer w-100">Submit</button>
-            <button class="btn btn-outline-secondary px-4 reset-btn d-none">Reset</button>
-        </div>
-
-        <div class="col-12 score-card mt-3 fw-bold"></div>
+            @endif
+        @endforeach
 
     </div>
+
 </div>
 
 @endsection
 
-@section('scripts')
 
-{{-- jQuery --}}
-<script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
-
-{{-- jQuery UI --}}
-<script src="https://code.jquery.com/ui/1.13.3/jquery-ui.min.js"></script>
-<link rel="stylesheet" href="https://code.jquery.com/ui/1.13.3/themes/base/jquery-ui.css">
-
-{{-- Touch support --}}
-<script src="https://cdnjs.cloudflare.com/ajax/libs/jqueryui-touch-punch/0.2.3/jquery.ui.touch-punch.min.js"></script>
-
-{{-- Inline Styles --}}
-<style>
-.answer-box {
-    min-height: 60px;
-    border: 2px dashed #dee2e6;
-    border-radius: 12px;
-    padding: 10px;
-    display: flex;
-    align-items: center;
-    color: #6c757d;
-    transition: all .3s ease;
-}
-
-.option-card {
-    background: #ffffff;
-    border-radius: 12px;
-    padding: 12px;
-    box-shadow: 0 4px 12px rgba(0,0,0,.08);
-    cursor: grab;
-    text-align: center;
-}
-
-.answer-box.correct {
-    background: #d4edda;
-    border-color: #28a745;
-    color: #155724;
-}
-
-.answer-box.wrong {
-    background: #f8d7da;
-    border-color: #dc3545;
-    color: #721c24;
-}
-
-.correct-answer-text {
-    font-size: .85rem;
-    margin-top: 6px;
-    color: #198754;
-    font-weight: 500;
-}
-</style>
-
-
-@endsection
