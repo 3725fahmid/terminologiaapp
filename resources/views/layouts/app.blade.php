@@ -50,7 +50,7 @@
     {{-- <body data-layout="vertical">  --}}
 
         <!-- Begin page -->
-        <div id="layout-wrapper">
+        <div id="layout-wrapper" style="margin-bottom: 80px">
 
 
           @include('partials.header')
