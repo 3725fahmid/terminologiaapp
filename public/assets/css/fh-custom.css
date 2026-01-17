@@ -676,3 +676,22 @@ a {
   background: linear-gradient(135deg, #3d9f5d, #22937e);
   color: #d1fef2;
 }
+
+
+
+
+
+/* Quiz page design Start  */
+
+/* Override draggable defaults... */
+.answer,
+.option {
+  min-height: 60px;
+  vertical-align: middle;
+}
+
+.drag-item {
+  cursor: grab;
+}
+
+/* Quiz page design end  */

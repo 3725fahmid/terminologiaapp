@@ -11,91 +11,103 @@
     <a href="javascript:history.back()" class="btn btn-dark mb-3">
         ← Back
     </a>
-    <div class="card shadow rounded-3">
-        <div class="card-body">
-            <div class="card-header shadow-lg rounded-3">
-                <h1>{{ $word_details['word'] }}</h1>
-                <hr>
-                 <h2 class="text-warning">Meaning:
-                    {{-- {{ $word_details['wordmeaning'] }} --}}
-                    @foreach(explode(',', $word_details['wordmeaning']) as $syn)
-                        <span class="badge bg-success rounded-0">{{ trim($syn) }}</span>
-                    @endforeach
-                </h2>
+    <div class="word-wrapper">
+        <div class="container">
+
+            <!-- TOP SECTION -->
+            <div class="row g-4 mb-4">
+
+                <!-- WORD INFO -->
+                <div class="col-lg-4 col-md-5">
+                    <div class="card word-card h-100">
+                        <div class="card-body">
+                            <div class="d-flex justify-content-between align-items-start">
+                                <div>
+                                    <span class="badge bg-warning text-dark mb-2">Word</span>
+                                    <h1 class="fw-bold display-6 mb-1">
+                                        {{ $word_details['word'] }}
+                                    </h1>
+                                    <small class="text-muted">Easy spelling</small>
+                                    <div class="fw-semibold">
+                                        {{ $word_details['easy_spelling'] }}
+                                    </div>
+                                </div>
+
+                                <button class="btn btn-light">
+                                    <i class="ri-volume-up-fill"></i>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- DEFINITION + EXAMPLE -->
+                <div class="col-lg-8 col-md-7">
+                    <div class="card word-card mb-3">
+                        <div class="card-body rounded-4">
+                            <h5 class="fw-semibold mb-2">Definition</h5>
+                            {{ $word_details['wordmeaning'] }}
+                        </div>
+                    </div>
+
+                    <div class="card word-card">
+                        <div class="card-body rounded-4">
+                            <h5 class="fw-semibold mb-2">Example</h5>
+                            {{ $word_details['example'] }}
+                        </div>
+                    </div>
+                </div>
+
             </div>
-            <div class="card-body">
-                {{-- <i class="mdi mdi-voice d-inline-block"></i> --}}
-                <button type="button" class="btn header-item noti-icon waves-effect d-flex gap-2">
-                    <i class="ri-user-voice-fill"></i>
-                    <h2 class="inline-block text-primary"> {{ $word_details['easy_spelling'] }}</h2>
-                </button>
+
+            <!-- SYNONYMS & ANTONYMS -->
+            <div class="row g-4 mb-4">
+
+                <div class="col-lg-6">
+                    <div class="card word-card h-100">
+                        <div class="card-body">
+                            <h5 class="fw-semibold mb-3">Synonyms</h5>
+                            @foreach(explode(',', $word_details['synonyms']) as $syn)
+                                <span class="badge bg-info">
+                                    {{ trim($syn) }}
+                                </span>
+                            @endforeach
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-lg-6">
+                    <div class="card word-card h-100">
+                        <div class="card-body">
+                            <h5 class="fw-semibold mb-3">Antonyms</h5>
+                            @foreach(explode(',', $word_details['antonyms']) as $ant)
+                                <span class="badge bg-warning text-dark">
+                                    {{ trim($ant) }}
+                                </span>
+                            @endforeach
+                        </div>
+                    </div>
+                </div>
+
             </div>
+
+            <!-- TACTIC -->
+            <div class="row">
+                <div class="col-12">
+                    <div class="card word-card">
+                        <div class="card-body">
+                            <h5 class="fw-semibold mb-2">Tactic / Memory Tip</h5>
+                            {{ $word_details['tactic'] }}
+                        </div>
+                    </div>
+                </div>
+            </div>
+
         </div>
     </div>
 
-    <div class="card rounded-3">
-        <div class="card-body">
-            <div class="card-header rounded-3">
-            </div>
-            <div class="card-body">
-                <span class="text-lg">Synonyms:</span>
-                <h5>
-                    {{-- {{ $word_details['synonyms'] }} --}}
-                    @foreach(explode(',', $word_details['synonyms']) as $syn)
-                        <span class="badge text-lg bg-info">{{ trim($syn) }}</span>
-                    @endforeach
-    
-                </h5>
-                <hr>
-                Antonyms:
-                <h5>
-                    {{-- {{ $word_details['synonyms'] }} --}}
-                    @foreach(explode(',', $word_details['antonyms']) as $syn)
-                        <span class="badge bg-info">{{ trim($syn) }}</span>
-                    @endforeach
-    
-                </h5>
-            </div>
-        </div>
-    </div>
 
-    <div class="card rounded-3">
-        <div class="card-body">
-            <div class="card-header rounded-3">
-            </div>
-            <div class="card-body">
-                Antonyms:
-                <h5>
-                    {{-- {{ $word_details['synonyms'] }} --}}
-                    @foreach(explode(',', $word_details['antonyms']) as $syn)
-                        <span class="badge bg-info">{{ trim($syn) }}</span>
-                    @endforeach
-    
-                </h5>
-                <hr>
-                <h4 class="text-mute">{{ $word_details['easy_spelling'] }}</h4>
-            </div>
-        </div>
-    </div>
 
-    <div class="card rounded-3">
-        <div class="card-body">
-            <div class="card-header rounded-3">
-            </div>
-            <div class="card-body">
-                Tactic:
-                <h5>
-                    {{-- {{ $word_details['synonyms'] }} --}}
-                    @foreach(explode(',', $word_details['tactic']) as $syn)
-                        <span class="badge bg-info">{{ trim($syn) }}</span>
-                    @endforeach
-    
-                </h5>
-                <hr>
-                <h4 class="text-mute">{{ $word_details['easy_spelling'] }}</h4>
-            </div>
-        </div>
-    </div>
 
     {{-- id" => "11"
   "story_id" => "3"
@@ -111,6 +123,14 @@
 
 
 @endsection
+
+
+<style>
+
+
+
+</style>
+
 
 
 @section('scripts')
