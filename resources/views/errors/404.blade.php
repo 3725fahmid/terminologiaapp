@@ -1,19 +1,39 @@
-{{-- resources/views/errors/404.blade.php --}}
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Page Not Found</title>
-    <link href="{{ asset('css/app.css') }}" rel="stylesheet">
-</head>
-<body class="bg-light d-flex align-items-center justify-content-center vh-100">
-    <div class="text-center">
-        <h1 class="display-1 fw-bold">404</h1>
-        <p class="fs-4">Oops! Page not found.</p>
+@extends('layouts.app')
 
-        <a href="{{ url('/') }}" class="btn btn-dark mt-3">
-            ← Go Home
+@section('title', 'Page Not Found')
+
+@section('admin')
+
+<div class="container vh-100 d-flex flex-column justify-content-center align-items-center text-center bg-light">
+
+    <!-- BIG ERROR NUMBER -->
+    <h1 class="display-1 fw-bold text-danger mb-3">404</h1>
+
+    <!-- MESSAGE -->
+    <h3 class="fw-bold mb-3">Oops! Page Not Found</h3>
+    <p class="text-muted mb-4">
+        The page you are looking for does not exist.<br>
+        It might have been removed, renamed, or is temporarily unavailable.
+    </p>
+
+    <!-- ACTION BUTTONS -->
+    <div class="d-flex gap-2 justify-content-center flex-wrap">
+        <a href="{{ route('home') }}" class="btn btn-primary btn-lg">
+            Go Home
+        </a>
+        <a href="{{ url()->previous() }}" class="btn btn-outline-secondary btn-lg">
+            Go Back
         </a>
     </div>
-</body>
-</html>
+
+    <!-- ILLUSTRATION -->
+    <div class="mt-5">
+        <img src="https://cdn-icons-png.flaticon.com/512/3050/3050740.png" 
+             alt="404 Illustration" 
+             class="img-fluid" 
+             style="max-width: 300px; opacity: .6;">
+    </div>
+
+</div>
+
+@endsection

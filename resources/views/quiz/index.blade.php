@@ -16,6 +16,10 @@
         </p>
     </div>
 
+    <a href="javascript:history.back()" class="btn btn-dark mb-3">
+        ← Back
+    </a>
+
     <div class="row g-4">
 
         @foreach ($storyData as $item)

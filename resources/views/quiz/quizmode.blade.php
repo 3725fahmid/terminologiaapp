@@ -14,11 +14,15 @@
         </p>
     </div>
 
+    <a href="javascript:history.back()" class="btn btn-dark mb-3">
+        ← Back
+    </a>
+
     <div class="row g-4">
 
         <!-- DRAG & DROP QUIZ -->
         <div class="col-12 col-md-6 col-lg-4">
-            <a href="#"
+            <a href="{{ route('quiz.meaning_builder', $id) }}"
                class="text-decoration-none">
 
                 <div class="card mode-card h-100 rounded-4 border-0">
@@ -44,7 +48,7 @@
 
         <!-- MULTIPLE CHOICE -->
         <div class="col-12 col-md-6 col-lg-4">
-            <a href="#"
+            <a href="{{ route('quiz.quiz_builder',$id) }}"
                class="text-decoration-none">
 
                 <div class="card mode-card h-100 rounded-4 border-0">
@@ -105,13 +109,11 @@
 @section('scripts')
 <style>
 .mode-card {
-    background-color: #f9fafb;
     box-shadow: 0 10px 30px rgba(0,0,0,.06);
     transition: all .25s ease;
 }
 
 .mode-card:hover {
-    background-color: #ffffff;
     transform: translateY(-6px);
     box-shadow: 0 20px 45px rgba(0,0,0,.12);
 }

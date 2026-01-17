@@ -12,6 +12,10 @@
         <p class="text-muted">Choose the correct meaning for each word</p>
     </div>
 
+    <a href="javascript:history.back()" class="btn btn-dark mb-3">
+        ← Back
+    </a>
+
     @foreach($words as $index => $item)
 
         @php

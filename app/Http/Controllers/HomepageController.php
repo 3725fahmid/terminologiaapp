@@ -39,6 +39,10 @@ class HomepageController extends Controller
             })->filter(); // remove null rows
         });
 
+        if (!$storyData) {
+            abort(404);
+        }
+
         return view('layouts.index', compact('storyData'));
     }
 

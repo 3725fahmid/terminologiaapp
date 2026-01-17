@@ -35,6 +35,10 @@ Route::middleware('auth')->group(function () {
     Route::resource('quiz', QuizController::class);
     Route::get('quiz/dragdrop/{id}', [QuizController::class, 'dragDrop'])
         ->name('quiz.drag_deop');
+    Route::get('quiz/word-meaning-builder/{id}', [QuizController::class, 'meaningBuilder'])
+        ->name('quiz.meaning_builder');
+    Route::get('quiz/quiz-builder/{id}', [QuizController::class, 'storyQuzeBuilder'])
+        ->name('quiz.quiz_builder');
     Route::resource('setting', SettingController::class);
 });
 

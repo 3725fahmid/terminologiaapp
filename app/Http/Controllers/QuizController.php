@@ -89,6 +89,65 @@ class QuizController extends Controller
         return view('quiz.dragableqn', compact('words'));
     }
 
+    public function meaningBuilder($id)
+    {
+        //
+
+        $wordData = Cache::remember('story_words', 3600, function () {
+            $collections = Excel::toCollection(new class implements WithHeadingRow {
+                public function headingRow(): int
+                {
+                    return 1;
+                }
+            }, public_path('storyassets/story_words.xlsx'));
+
+            return $collections->first()->map(function ($row) {
+                return array_map('trim', $row->toArray());
+            });
+        });
+
+        // Get ALL words where story_id = 1
+        $words = $wordData->where('story_id', $id)->values();
+
+        if ($words->isEmpty()) {
+            abort(404);
+        }
+
+
+        return view('quiz.dragableqn', compact('words'));
+    }
+
+
+    public function storyQuzeBuilder($id)
+    {
+        //
+
+        $wordData = Cache::remember('story_words', 3600, function () {
+            $collections = Excel::toCollection(new class implements WithHeadingRow {
+                public function headingRow(): int
+                {
+                    return 1;
+                }
+            }, public_path('storyassets/story_words.xlsx'));
+
+            return $collections->first()->map(function ($row) {
+                return array_map('trim', $row->toArray());
+            });
+        });
+
+        // Get ALL words where story_id = 1
+        $words = $wordData->where('story_id', $id)->values();
+
+        if ($words->isEmpty()) {
+            abort(404);
+        }
+
+
+        return view('quiz.storymcq', compact('words'));
+    }
+
+
+
     /**
      * Show the form for creating a new resource.
      *
@@ -140,7 +199,8 @@ class QuizController extends Controller
             abort(404);
         }
 
-        return view('quiz.quizmode', compact('words'));
+
+        return view('quiz.quizmode', compact('words', 'id'));
     }
 
     /**
