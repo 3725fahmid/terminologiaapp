@@ -8,7 +8,7 @@
     <div class="container">
 
     <!-- Back Button -->
-    <a href="javascript:history.back()" class="btn btn-dark mb-4">
+    <a href="javascript:history.back()" class="btn btn-outline-dark mb-4">
         ← Back
     </a>
 
@@ -18,7 +18,7 @@
         <div class="col-12 col-lg-6 h-100 mb-3">
             <div class="card shadow-sm rounded-4">
                 <div class="card-header bg-white fw-bold">
-                    Chose correct Options
+                    Choose correct Options
                 </div>
                 <div class="card-body">
                     <div class="row g-2 options-area">
