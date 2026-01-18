@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Illuminate\Pagination\LengthAwarePaginator;
 use Maatwebsite\Excel\Facades\Excel;
 use Maatwebsite\Excel\Concerns\WithHeadingRow;
 use Illuminate\Support\Facades\Cache;
@@ -18,7 +19,7 @@ class HomepageController extends Controller
     {
 
 
-        // Cache the story data for 1 hour (3600 seconds)
+        // Cache the story data for 1 hour
         $storyData = Cache::remember('story_data', 3600, function () {
             $collections = Excel::toCollection(new class implements WithHeadingRow {
                 public function headingRow(): int
@@ -27,23 +28,49 @@ class HomepageController extends Controller
                 }
             }, public_path('storyassets/story.xlsx'));
 
-            return $collections->first()->map(function ($row) {
-                $rowArray = array_map('trim', $row->toArray());
+            return $collections->first()
+                ->map(function ($row) {
+                    $rowArray = array_map('trim', $row->toArray());
 
-                // Skip rows without story_id
-                if (!isset($rowArray['story_id']) || empty($rowArray['story_id'])) {
-                    return null;
-                }
+                    // Skip rows without story_id
+                    if (empty($rowArray['story_id'])) {
+                        return null;
+                    }
 
-                return $rowArray;
-            })->filter(); // remove null rows
+                    return $rowArray;
+                })
+                ->filter()
+                ->values(); // IMPORTANT
         });
 
-        if (!$storyData) {
+        if ($storyData->isEmpty()) {
             abort(404);
         }
 
-        return view('layouts.index', compact('storyData'));
+        // -------------------
+        // PAGINATION
+        // -------------------
+        $perPage = 5;
+        $currentPage = LengthAwarePaginator::resolveCurrentPage();
+
+        $currentItems = $storyData
+            ->slice(($currentPage - 1) * $perPage, $perPage)
+            ->values();
+
+        $paginatedStoryData = new LengthAwarePaginator(
+            $currentItems,
+            $storyData->count(),
+            $perPage,
+            $currentPage,
+            [
+                'path' => request()->url(),
+                'query' => request()->query(),
+            ]
+        );
+
+        return view('layouts.index', [
+            'storyData' => $paginatedStoryData
+        ]);
     }
 
     /**

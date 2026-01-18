@@ -47,6 +47,9 @@
         @endforeach
 
     </div>
+        <div class="mt-4">
+            {{ $storyData->links() }}
+        </div>
 </div>
 @endsection
 
