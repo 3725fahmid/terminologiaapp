@@ -86,8 +86,12 @@
             </div>
 
             @php
-            $id = Auth::user()->id;
-            $userData = App\Models\User::find($id);
+            if (Auth::user()->id) {
+                $id = Auth::user()->id;
+                $userData = App\Models\User::find($id);
+                } else {
+                    abort(404);
+            }
             @endphp
 
             <div class="dropdown d-none d-md-inline-block d-lg-inline-block user-dropdown">
