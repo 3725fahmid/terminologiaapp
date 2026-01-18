@@ -25,7 +25,8 @@
 
     @php
         // Shuffle all questions
-        $shuffledWords = $words->shuffle();
+        // $shuffledWords = $words->shuffle();
+        $shuffledWords = $words->shuffle()->take(100);
     @endphp
 
     @foreach($shuffledWords as $index => $item)
@@ -151,7 +152,7 @@
 $(function () {
 
     // TIMER
-    let timeLeft = 30 * 60; // 30 minutes in seconds
+    let timeLeft = 50 * 60; // 50 minutes in seconds
 
     function formatTime(seconds) {
         const m = Math.floor(seconds / 60).toString().padStart(2, '0');
