@@ -49,6 +49,32 @@ class QuizController extends Controller
         return view('quiz.index', compact('storyData'));
     }
 
+    public function mcqTest()
+    {
+        //
+
+        $words = Cache::remember('story_words', 3600, function () {
+            $collections = Excel::toCollection(new class implements WithHeadingRow {
+                public function headingRow(): int
+                {
+                    return 1;
+                }
+            }, public_path('storyassets/story_words.xlsx'));
+
+            return $collections->first()->map(function ($row) {
+                return array_map('trim', $row->toArray());
+            });
+        });
+
+
+        if ($words->isEmpty()) {
+            abort(404);
+        }
+
+        // dd($wordsdata);
+
+        return view('quiz.mcqtest', compact('words'));
+    }
 
     public function dragDrop($id)
     {
@@ -118,7 +144,7 @@ class QuizController extends Controller
     }
 
 
-    public function storyQuzeBuilder($id)
+    public function storyQuizBuilder($id)
     {
         //
 
@@ -145,6 +171,8 @@ class QuizController extends Controller
 
         return view('quiz.storymcq', compact('words'));
     }
+
+
 
 
 

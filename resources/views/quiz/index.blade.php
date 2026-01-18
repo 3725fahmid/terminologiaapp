@@ -32,7 +32,7 @@
 
         <div class="row">
             <div class="col-12 col-md-6 col-lg-4">
-                <a href="#"
+                <a href="{{ route('mcq') }}"
                     class="text-decoration-none">
                 
 

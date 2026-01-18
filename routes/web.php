@@ -33,11 +33,12 @@ Route::middleware('auth')->group(function () {
         ->name('story.worddata');
     Route::resource('story', StoryController::class);
     Route::resource('quiz', QuizController::class);
+    Route::get('mcq-quiz', [QuizController::class, 'mcqTest'])->name('mcq');
     Route::get('quiz/dragdrop/{id}', [QuizController::class, 'dragDrop'])
         ->name('quiz.drag_deop');
     Route::get('quiz/word-meaning-builder/{id}', [QuizController::class, 'meaningBuilder'])
         ->name('quiz.meaning_builder');
-    Route::get('quiz/quiz-builder/{id}', [QuizController::class, 'storyQuzeBuilder'])
+    Route::get('quiz/quiz-builder/{id}', [QuizController::class, 'storyQuizBuilder'])
         ->name('quiz.quiz_builder');
     Route::resource('setting', SettingController::class);
 });
