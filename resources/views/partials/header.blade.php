@@ -86,11 +86,11 @@
             </div>
 
             @php
-            if (Auth::user()->id) {
+            if (!Auth::check()) {
+                abort(404);
+            } else {
                 $id = Auth::user()->id;
                 $userData = App\Models\User::find($id);
-                } else {
-                    abort(404);
             }
             @endphp
 
