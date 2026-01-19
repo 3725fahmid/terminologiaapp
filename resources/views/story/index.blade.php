@@ -25,11 +25,11 @@
                 </span>
             </div>
 
-            <h4 class="fw-bold mb-4">
+            <h4 class="fw-bold fs-3 mb-4">
                 English Version
             </h4>
 
-            <div class="fs-6 lh-lg text-dark">
+            <div class="fs-5 lh-lg text-dark">
                 @foreach(explode("\n\n", $story['english'] ?? '') as $paragraph)
                     <p class="mb-4">
                         {{ $paragraph }}
@@ -44,11 +44,11 @@
     <div class="card border-0 shadow-sm rounded-4 mb-5">
         <div class="card-body px-4 px-md-5 py-4">
 
-            <h4 class="fw-bold mb-4">
+            <h4 class="fw-bold fs-3 mb-4">
                 বাংলা সংস্করণ
             </h4>
 
-            <div class="fs-6 lh-lg text-muted">
+            <div class="fs-5 lh-lg text-muted">
                 @foreach(explode("\n\n", $story['bangla'] ?? '') as $paragraph)
                     <p class="mb-4">
                         {{ $paragraph }}
