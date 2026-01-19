@@ -8,7 +8,7 @@
     <div class="container">
 
     <!-- Back Button -->
-    <a href="javascript:history.back()" class="btn btn-outline-dark mb-4">
+    <a href="javascript:history.back()" class="btn btn-dark fw-semibold text-decoration-none mb-2">
         ← Back
     </a>
 
